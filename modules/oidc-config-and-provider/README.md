@@ -9,13 +9,24 @@ For more information, see [OpenID Connect Overview](https://docs.openshift.com/r
 ## Example Usage
 
 ```
+terraform {
+  required_providers {
+    rhcs = {
+      source  = "terraform-redhat/rhcs"
+      version = ">= 1.7.2"
+    }
+  }
+}
+
 module "oidc_config_and_provider" {
   source = "terraform-redhat/rosa-hcp/rhcs//modules/oidc-config-and-provider"
-  version = "1.6.2"
+  version = "1.7.6"
 
   managed = true
 }
 ```
+
+Module release `1.7.6` contains the `oidc_prefix` input that the inputs table below documents. Its own `versions.tf` still declares `rhcs >= 1.6.2`, so pinning the module version alone does not stop Terraform from resolving, or keeping locked in `.terraform.lock.hcl`, a provider release that has no `prefix` argument on `rhcs_rosa_oidc_config_input`. The example declares `rhcs >= 1.7.2` in the calling root module for that reason. The generated tables below describe the current module source on this branch, which also requires `rhcs >= 1.7.2`.
 
 <!-- BEGIN_AUTOMATED_TF_DOCS_BLOCK -->
 ## Requirements
@@ -25,7 +36,7 @@ module "oidc_config_and_provider" {
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.0.0 |
-| <a name="requirement_rhcs"></a> [rhcs](#requirement\_rhcs) | >= 1.6.2 |
+| <a name="requirement_rhcs"></a> [rhcs](#requirement\_rhcs) | >= 1.7.2 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9 |
 
 ## Providers
@@ -34,7 +45,7 @@ module "oidc_config_and_provider" {
 | ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | >= 3.0.0 |
-| <a name="provider_rhcs"></a> [rhcs](#provider\_rhcs) | >= 1.6.2 |
+| <a name="provider_rhcs"></a> [rhcs](#provider\_rhcs) | >= 1.7.2 |
 | <a name="provider_time"></a> [time](#provider\_time) | >= 0.9 |
 
 ## Modules

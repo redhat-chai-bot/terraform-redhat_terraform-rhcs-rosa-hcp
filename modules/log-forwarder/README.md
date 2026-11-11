@@ -4,7 +4,7 @@
 
 This Terraform sub-module manages [`rhcs_log_forwarder`](https://registry.terraform.io/providers/terraform-redhat/rhcs/latest/docs/resources/log_forwarder) resources for ROSA HCP clusters. It configures forwarding of cluster logs to **either** Amazon S3 **or** Amazon CloudWatch (not both), and selects which applications and/or log forwarder groups to include.
 
-**Provider note:** Use a **terraform-redhat/rhcs** release that includes the `rhcs_log_forwarder` resource (see provider [changelog](https://github.com/terraform-redhat/terraform-provider-rhcs/blob/main/CHANGELOG.md)). The module constraint `>= 1.7.2` matches other submodules; bump the submodule `versions.tf` once the minimum released version that ships this resource is known.
+**Provider note:** The `rhcs_log_forwarder` resource is available from **terraform-redhat/rhcs** `1.7.3` onward. Earlier releases do not provide this resource, so the module constraint is `>= 1.7.3`.
 
 ## Tests
 
@@ -19,10 +19,23 @@ terraform test
 
 ## Example Usage
 
+Module release `1.7.3` still declares `rhcs >= 1.7.2` in its own `versions.tf`, so selecting that module version does not by itself stop Terraform from resolving, or keeping locked in `.terraform.lock.hcl`, provider `1.7.2`, which has no `rhcs_log_forwarder` resource. Declare the floor explicitly in the root module that calls either example:
+
+```
+terraform {
+  required_providers {
+    rhcs = {
+      source  = "terraform-redhat/rhcs"
+      version = ">= 1.7.3"
+    }
+  }
+}
+```
+
 ```
 module "cluster_logs_s3" {
   source = "terraform-redhat/rosa-hcp/rhcs//modules/log-forwarder"
-  version = "1.7.2"
+  version = "1.7.3"
 
   cluster_id = module.hcp.cluster_id
 
@@ -38,7 +51,7 @@ module "cluster_logs_s3" {
 ```
 module "cluster_logs_cloudwatch" {
   source = "terraform-redhat/rosa-hcp/rhcs//modules/log-forwarder"
-  version = "1.7.2"
+  version = "1.7.3"
 
   cluster_id = module.hcp.cluster_id
 
@@ -59,13 +72,13 @@ module "cluster_logs_cloudwatch" {
 | Name | Version |
 | ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_rhcs"></a> [rhcs](#requirement\_rhcs) | >= 1.7.2 |
+| <a name="requirement_rhcs"></a> [rhcs](#requirement\_rhcs) | >= 1.7.3 |
 
 ## Providers
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_rhcs"></a> [rhcs](#provider\_rhcs) | >= 1.7.2 |
+| <a name="provider_rhcs"></a> [rhcs](#provider\_rhcs) | >= 1.7.3 |
 
 ## Modules
 

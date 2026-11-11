@@ -22,13 +22,13 @@ module "kubeletconfig" {
 | Name | Version |
 | ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_rhcs"></a> [rhcs](#requirement\_rhcs) | >= 1.6.2 |
+| <a name="requirement_rhcs"></a> [rhcs](#requirement\_rhcs) | >= 1.6.3 |
 
 ## Providers
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_rhcs"></a> [rhcs](#provider\_rhcs) | >= 1.6.2 |
+| <a name="provider_rhcs"></a> [rhcs](#provider\_rhcs) | >= 1.6.3 |
 
 ## Modules
 
